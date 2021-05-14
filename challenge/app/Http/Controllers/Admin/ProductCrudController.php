@@ -39,6 +39,7 @@ class ProductCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->set('show.setFromDb', false);
         $this->showProducts();
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -57,7 +58,7 @@ class ProductCrudController extends CrudController
     {
         CRUD::setValidation(ProductRequest::class);
 
-        $this->addCategories();
+        $this->addProductss();
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -77,7 +78,7 @@ class ProductCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    private function addCategories()
+    private function addProductss()
     {
         $this->crud->addFields([
             [
@@ -90,11 +91,11 @@ class ProductCrudController extends CrudController
                 'attribute' => 'name'
             ],
             [
-                'name'         => "image",
-                'type'         => 'base64_image',
+                'label' => "Product Image",
+                'name' => "image",
+                'type' => 'image',
+                'crop' => true, // set to true to allow cropping, false to disable
                 'aspect_ratio' => 1,
-                'crop'         => true,
-                'src'          => NULL,
             ]
         ]);
     }
@@ -111,8 +112,11 @@ class ProductCrudController extends CrudController
                 'attribute' => 'name'
             ],
             [
-                'name'      => 'image',
-                'type'      => 'image',
+                'label' => "Product Image",
+                'name' => "image",
+                'type' => 'image',
+                'crop' => true, // set to true to allow cropping, false to disable
+                'aspect_ratio' => 1,
             ]
         ]);
     }

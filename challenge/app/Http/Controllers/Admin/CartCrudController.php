@@ -83,11 +83,11 @@ class CartCrudController extends CrudController
         $this->crud->addFields([
             [
                 'name' => 'price',
-                'type' => 'integer'
+                'type' => 'number'
             ],
             [
                 'name' => 'number elements',
-                'type' => 'integer'
+                'type' => 'number'
             ],
             [
                 'name' => 'products',
