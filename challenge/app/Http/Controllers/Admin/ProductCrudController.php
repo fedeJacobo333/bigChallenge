@@ -85,17 +85,13 @@ class ProductCrudController extends CrudController
                 'name' => 'name'
             ],
             [
+                'name' => 'price'
+            ],
+            [
                 'name' => 'category_id',
                 'type' => 'select2',
                 'entity' => 'category',
                 'attribute' => 'name'
-            ],
-            [
-                'label' => "Product Image",
-                'name' => "image",
-                'type' => 'image',
-                'crop' => true, // set to true to allow cropping, false to disable
-                'aspect_ratio' => 1,
             ]
         ]);
     }
@@ -107,16 +103,12 @@ class ProductCrudController extends CrudController
                 'name' => 'name'
             ],
             [
+                'name' => 'price'
+            ],
+            [
                 'name' => 'category',
                 'entity' => 'category',
                 'attribute' => 'name'
-            ],
-            [
-                'label' => "Product Image",
-                'name' => "image",
-                'type' => 'image',
-                'crop' => true, // set to true to allow cropping, false to disable
-                'aspect_ratio' => 1,
             ]
         ]);
     }
