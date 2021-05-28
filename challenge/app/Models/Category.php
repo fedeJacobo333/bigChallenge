@@ -88,7 +88,7 @@ class Category extends Model
     */
 
     public function products(){
-        return $this->hasMany(Product::class, 'create_products_table');
+        return $this->hasMany(Product::class, 'category_id');
     }
 
     /*

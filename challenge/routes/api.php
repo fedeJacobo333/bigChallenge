@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/home', function () {
+    return view('home');
+});
+
+Route::group(['prefix' => '/category'], function () {
+    Route::GET('', 'App\Http\Controllers\CategoryController@get');
+    Route::GET('/{category}',  'App\Http\Controllers\CategoryController@productsInCategory');
+});

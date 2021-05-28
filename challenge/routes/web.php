@@ -2,17 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('layout');
+});
+
+Route::get('/home{any}', function () {
+    return view('home');
+})->where('any', '.*');
+
+Route::group(['prefix' => '/api/category'], function () {
+    Route::GET('', 'App\Http\Controllers\CategoryController@get');
+    Route::GET('/{category}/products',  'App\Http\Controllers\CategoryController@productsInCategory');
+});
+
+Route::group(['prefix' => '/api/cart'], function () {
+    Route::POST('', 'App\Http\Controllers\CartController@store');
 });

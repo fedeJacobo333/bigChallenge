@@ -89,7 +89,7 @@ class CategoryCrudController extends CrudController
                 'label' => "Category Image",
                 'name' => "image",
                 'type' => 'image',
-                'crop' => true, // set to true to allow cropping, false to disable
+                'crop' => true,
                 'aspect_ratio' => 1,
             ]
         ]);
@@ -105,7 +105,7 @@ class CategoryCrudController extends CrudController
                 'label' => "Category Image",
                 'name' => "image",
                 'type' => 'image',
-                'crop' => true, // set to true to allow cropping, false to disable
+                'crop' => true,
                 'aspect_ratio' => 1,
             ]
         ]);
