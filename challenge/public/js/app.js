@@ -1951,8 +1951,15 @@ var comp = vue_dist_vue_js__WEBPACK_IMPORTED_MODULE_2___default().component('app
               case 0:
                 console.log(_this.cart);
                 _context.next = 3;
-                return axios.post('/api/cart', {
-                  cart: _this.cart
+                return axios({
+                  method: 'post',
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                  },
+                  url: '/api/cart',
+                  data: {
+                    cart: _this.cart
+                  }
                 }).then(function (response) {
                   console.log('carrito creado');
                 })["catch"](function (error) {
@@ -1974,7 +1981,7 @@ var comp = vue_dist_vue_js__WEBPACK_IMPORTED_MODULE_2___default().component('app
   mounted: function mounted() {
     this.cart = _store__WEBPACK_IMPORTED_MODULE_1__.default.state.cart;
   },
-  template: "\n        <div id=\"cart\">\n          {{ cart }} <button @click=\"createCart()\">Confirmar compra</button>\n        </div>\n    "
+  template: "\n        <div id=\"cart\" v-if=\"cart && cart.products && cart.products.length > 0\">\n          <div>\n              <li v-for=\"product in cart.products\">{{ product.name }} X{{ product.amount }} - $ {{ product.price }}</li>\n          </div>\n          <div>{{ cart.number_elements }} elementos</div>\n          <div>$ {{ cart.price }}</div>\n        </div>\n    "
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (comp);
 
@@ -2128,7 +2135,7 @@ var comp = vue_dist_vue_js__WEBPACK_IMPORTED_MODULE_2___default().component('app
   mounted: function mounted() {
     this.products = this.getproducts();
   },
-  template: "\n        <div>\n            <div class=\"card\" v-for=\"product in products\">\n                <h3>{{ product.name }}</h3>\n                <img :src=\"'../../' + product.image\">\n                <button @click=\"addProductToCart(product)\">Agregar al carrito</button>\n            </div>\n        </div>\n    "
+  template: "\n        <div>\n            <div class=\"card\" v-for=\"product in products\">\n                <div class=\"product-header\">\n                    <h3>{{ product.name }}</h3>\n                    <h3>$ {{ product.price }}</h3>\n                </div>\n                <img :src=\"'../../' + product.image\">\n                <button @click=\"addProductToCart(product)\">Agregar al carrito</button>\n            </div>\n        </div>\n    "
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (comp);
 
@@ -2187,30 +2194,40 @@ __webpack_require__.r(__webpack_exports__);
 var store = {
   debug: true,
   state: {
-    cart: []
+    cart: {
+      products: [],
+      price: 0,
+      number_elements: 0
+    }
   },
   addProductAction: function addProductAction(product) {
     if (this.debug) {
       console.log('addProductAction triggered with', product);
     }
 
-    var index = this.state.cart.findIndex(function (c) {
+    var index = this.state.cart.products.findIndex(function (c) {
       return c.id === product.id;
     });
 
     if (index !== -1) {
-      var productToUpdate = this.state.cart[index];
+      var productToUpdate = this.state.cart.products[index];
+      productToUpdate.id = product.id;
       productToUpdate.name = product.name;
       productToUpdate.amount++;
       productToUpdate.price = parseInt(productToUpdate.price) + parseInt(product.price);
-      this.state.cart[index] = productToUpdate;
+      this.state.cart.products[index] = productToUpdate;
+      this.state.cart.price = parseInt(this.state.cart.price) + parseInt(product.price);
+      this.state.cart.number_elements++;
     } else {
-      this.state.cart.push({
+      var productToAdd = {
         id: product.id,
         name: product.name,
         amount: 1,
         price: product.price
-      });
+      };
+      this.state.cart.products.push(productToAdd);
+      this.state.cart.price = parseInt(this.state.cart.price) + parseInt(product.price);
+      this.state.cart.number_elements++;
     }
   },
   clearCartAction: function clearCartAction() {

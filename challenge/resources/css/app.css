@@ -23,3 +23,13 @@
 .admin{
     float: right;
 }
+
+.product-header{
+    display: flex;
+    justify-content: space-around;
+}
+
+.cart{
+    display: flex;
+    justify-content: space-around;
+}

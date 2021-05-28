@@ -35,7 +35,10 @@ const comp = Vue.component('app-products', {
     template: `
         <div>
             <div class="card" v-for="product in products">
-                <h3>{{ product.name }}</h3>
+                <div class="product-header">
+                    <h3>{{ product.name }}</h3>
+                    <h3>$ {{ product.price }}</h3>
+                </div>
                 <img :src="'../../' + product.image">
                 <button @click="addProductToCart(product)">Agregar al carrito</button>
             </div>
