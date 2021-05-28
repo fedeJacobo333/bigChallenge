@@ -17,7 +17,6 @@ const comp = Vue.component('app-cart', {
 
             let result = await axios({
                 method: 'post',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 url: '/api/cart',
                 data: {
                     cart: this.cart
@@ -36,12 +35,13 @@ const comp = Vue.component('app-cart', {
     },
 
     template: `
-        <div id="cart" v-if="cart && cart.products && cart.products.length > 0">
+        <div id="cart" v-if="cart?.products?.length > 0">
           <div>
               <li v-for="product in cart.products">{{ product.name }} X{{ product.amount }} - $ {{ product.price }}</li>
           </div>
           <div>{{ cart.number_elements }} elementos</div>
           <div>$ {{ cart.price }}</div>
+          <div><button @click="createCart()">pagar</button></div>
         </div>
     `,
 });

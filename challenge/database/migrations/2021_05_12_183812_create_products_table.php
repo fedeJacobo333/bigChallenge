@@ -29,18 +29,18 @@ class CreateProductsTable extends Migration
 
         Schema::create('products_carts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('products_id');
-            $table->unsignedBigInteger('carts_id');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('cart_id');
             $table->timestamps();
 
-            $table->unique(['products_id', 'carts_id']);
+            $table->unique(['product_id', 'cart_id']);
 
-            $table->foreign('products_id')
+            $table->foreign('product_id')
                 ->references('id')
                 ->on('products')
                 ->onDelete('cascade');
 
-            $table->foreign('carts_id')
+            $table->foreign('cart_id')
                 ->references('id')
                 ->on('carts')
                 ->onDelete('cascade');

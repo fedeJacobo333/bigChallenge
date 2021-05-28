@@ -7,12 +7,6 @@ require('./bootstrap');
 Vue.use(VueRouter);
 
 window.Vue = new Vue({
-   // el: '#body',
-
-  /*  components: {
-        appMenu: app_menu,
-        appProducts: app_product
-    },*/
 
     router: router
 }).$mount('#body');

@@ -1865,12 +1865,6 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 vue_dist_vue_js__WEBPACK_IMPORTED_MODULE_1___default().use(vue_router__WEBPACK_IMPORTED_MODULE_2__.default);
 window.Vue = new (vue_dist_vue_js__WEBPACK_IMPORTED_MODULE_1___default())({
-  // el: '#body',
-
-  /*  components: {
-        appMenu: app_menu,
-        appProducts: app_product
-    },*/
   router: _routes__WEBPACK_IMPORTED_MODULE_0__.default
 }).$mount('#body');
 
@@ -1953,9 +1947,6 @@ var comp = vue_dist_vue_js__WEBPACK_IMPORTED_MODULE_2___default().component('app
                 _context.next = 3;
                 return axios({
                   method: 'post',
-                  headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                  },
                   url: '/api/cart',
                   data: {
                     cart: _this.cart
@@ -1981,7 +1972,7 @@ var comp = vue_dist_vue_js__WEBPACK_IMPORTED_MODULE_2___default().component('app
   mounted: function mounted() {
     this.cart = _store__WEBPACK_IMPORTED_MODULE_1__.default.state.cart;
   },
-  template: "\n        <div id=\"cart\" v-if=\"cart && cart.products && cart.products.length > 0\">\n          <div>\n              <li v-for=\"product in cart.products\">{{ product.name }} X{{ product.amount }} - $ {{ product.price }}</li>\n          </div>\n          <div>{{ cart.number_elements }} elementos</div>\n          <div>$ {{ cart.price }}</div>\n        </div>\n    "
+  template: "\n        <div id=\"cart\" v-if=\"cart?.products?.length > 0\">\n          <div>\n              <li v-for=\"product in cart.products\">{{ product.name }} X{{ product.amount }} - $ {{ product.price }}</li>\n          </div>\n          <div>{{ cart.number_elements }} elementos</div>\n          <div>$ {{ cart.price }}</div>\n          <div><button @click=\"createCart()\">pagar</button></div>\n        </div>\n    "
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (comp);
 
@@ -2052,7 +2043,7 @@ var comp = vue_dist_vue_js__WEBPACK_IMPORTED_MODULE_2___default().component('app
       window.Vue.$router.push({
         name: 'products',
         params: {
-          category: category
+          id: category
         }
       });
     }
@@ -2111,7 +2102,7 @@ var comp = vue_dist_vue_js__WEBPACK_IMPORTED_MODULE_2___default().component('app
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get('/api/category/' + _this.category + '/products').then(function (response) {
+                return axios.get('/api/category/' + _this.$route.params.id).then(function (response) {
                   _this.products = response.data;
                 })["catch"](function (error) {
                   console.log(error);
@@ -2167,8 +2158,7 @@ var routes = [{
   path: '/home/cart',
   component: _components_app_cart__WEBPACK_IMPORTED_MODULE_2__.default
 }, {
-  path: '/home/category/products',
-  //  /home/category/:id/products
+  path: '/home/category/:id',
   name: 'products',
   component: _components_app_product__WEBPACK_IMPORTED_MODULE_1__.default,
   props: true

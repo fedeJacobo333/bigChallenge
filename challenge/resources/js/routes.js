@@ -13,7 +13,7 @@ let routes = [
         component: app_cart
     },
     {
-        path: '/home/category/products',//  /home/category/:id/products
+        path: '/home/category/:id',
         name: 'products',
         component: app_products,
         props: true

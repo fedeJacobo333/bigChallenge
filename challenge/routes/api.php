@@ -27,6 +27,6 @@ Route::group(['prefix' => '/category'], function () {
     Route::GET('/{category}',  'App\Http\Controllers\CategoryController@productsInCategory');
 });
 
-Route::group(['prefix' => '/api/cart'], function () {
+Route::group(['prefix' => '/cart'], function () {
     Route::POST('', 'App\Http\Controllers\CartController@store');
 });

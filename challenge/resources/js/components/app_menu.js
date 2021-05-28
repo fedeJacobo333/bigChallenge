@@ -23,7 +23,7 @@ const comp = Vue.component('app-menu', {
         },
         redirectToProducts(category){
             console.log('cat ' + category);
-            window.Vue.$router.push({ name: 'products', params: { category: category } });
+            window.Vue.$router.push({ name: 'products', params: { id: category } });
         }
     },
 

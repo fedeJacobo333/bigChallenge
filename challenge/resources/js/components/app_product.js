@@ -15,7 +15,7 @@ const comp = Vue.component('app-products', {
 
     methods: {
         async getproducts(){
-            let result = await axios.get('/api/category/' + this.category + '/products')
+            let result = await axios.get('/api/category/' + this.$route.params.id)
                 .then(response => {
                     this.products = response.data;
                 })
