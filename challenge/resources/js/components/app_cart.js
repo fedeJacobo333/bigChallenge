@@ -6,20 +6,19 @@ const comp = Vue.component('app-cart', {
 
     data() {
         return {
-            products: [],
-            cart: []
+            sharedStore: store,
         }
     },
 
     methods: {
         async createCart(){
-            console.log(this.cart);
+            console.log(this.sharedStore.state.cart);
 
             let result = await axios({
                 method: 'post',
                 url: '/api/cart',
                 data: {
-                    cart: this.cart
+                    cart: this.sharedStore.state.cart
                 }
             }).then(response => {
                 console.log('carrito creado');
@@ -27,20 +26,19 @@ const comp = Vue.component('app-cart', {
                 .catch(error => {
                     console.log(error);
                 })
+        },
+        removeProduct(product){
+            this.sharedStore.removeProductAction(product);
         }
     },
 
-    mounted() {
-        this.cart = store.state.cart;
-    },
-
     template: `
-        <div id="cart" v-if="cart?.products?.length > 0">
+        <div id="cart" v-if="sharedStore?.state?.cart?.products?.length > 0">
           <div>
-              <li v-for="product in cart.products">{{ product.name }} X{{ product.amount }} - $ {{ product.price }}</li>
+              <li v-for="product in sharedStore.state.cart.products">{{ product.name }} X{{ product.amount }} - $ {{ product.price }} <button @click="removeProduct(product)">eliminar producto</button></li>
           </div>
-          <div>{{ cart.number_elements }} elementos</div>
-          <div>$ {{ cart.price }}</div>
+          <div>{{ sharedStore.state.cart.number_elements }} elementos</div>
+          <div>$ {{ sharedStore.state.cart.price }}</div>
           <div><button @click="createCart()">pagar</button></div>
         </div>
     `,

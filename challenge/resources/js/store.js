@@ -37,6 +37,31 @@ const store = {
         }
     },
 
+    removeProductAction(product) {
+        if (this.debug) {
+            console.log('removeProductAction triggered with', product)
+        }
+
+        let index = this.state.cart.products.findIndex(c => c.id === product.id);
+        if(index !== -1){
+            let productToUpdate = this.state.cart.products[index];
+            if (productToUpdate.amount === 1) {
+                if(this.state.cart.products.length === 1)
+                    this.state.cart.products = [];
+                else
+                    this.state.cart.products.splice(index, 1);
+                this.state.cart.price = parseInt(this.state.cart.price) - parseInt(product.price);
+            }else{
+                productToUpdate.amount--;
+                let priceAux = product.price;
+                productToUpdate.price = parseInt(productToUpdate.price) - (parseInt(priceAux)/parseInt(productToUpdate.amount + 1));
+                this.state.cart.products[index] = productToUpdate;
+                this.state.cart.price = parseInt(this.state.cart.price) - (parseInt(priceAux)/parseInt(productToUpdate.amount + 1));
+            }
+            this.state.cart.number_elements--;
+        }
+    },
+
     clearCartAction() {
         if (this.debug) {
             console.log('clearCartAction triggered')
