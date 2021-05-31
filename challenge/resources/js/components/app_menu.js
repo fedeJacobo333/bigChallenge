@@ -24,6 +24,9 @@ const comp = Vue.component('app-menu', {
         redirectToProducts(category){
             console.log('cat ' + category);
             window.Vue.$router.push({ name: 'products', params: { id: category } });
+        },
+        goBack(){
+            window.Vue.$router.go(-1);
         }
     },
 
@@ -33,10 +36,11 @@ const comp = Vue.component('app-menu', {
 
     template: `
         <div id="cat">
-            <div class="card" v-for="category in categories" @click="redirectToProducts(category.id)">
-                <h3>{{ category.name }}</h3>
-                <img :src="'../' + category.image">
-            </div>
+        <div><button @click="goBack()">back</button></div>
+        <div class="card" v-for="category in categories" @click="redirectToProducts(category.id)">
+            <h3>{{ category.name }}</h3>
+            <img :src="'../' + category.image">
+        </div>
         </div>
     `,
 });

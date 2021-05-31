@@ -17,8 +17,6 @@ const store = {
         let index = this.state.cart.products.findIndex(c => c.id === product.id);
         if(index !== -1){
             let productToUpdate = this.state.cart.products[index];
-            productToUpdate.id = product.id;
-            productToUpdate.name = product.name;
             productToUpdate.amount++;
             productToUpdate.price = parseInt(productToUpdate.price) + parseInt(product.price);
             this.state.cart.products[index] = productToUpdate;
@@ -46,10 +44,11 @@ const store = {
         if(index !== -1){
             let productToUpdate = this.state.cart.products[index];
             if (productToUpdate.amount === 1) {
-                if(this.state.cart.products.length === 1)
+                if(this.state.cart.products.length === 1) {
                     this.state.cart.products = [];
-                else
+                } else {
                     this.state.cart.products.splice(index, 1);
+                }
                 this.state.cart.price = parseInt(this.state.cart.price) - parseInt(product.price);
             }else{
                 productToUpdate.amount--;

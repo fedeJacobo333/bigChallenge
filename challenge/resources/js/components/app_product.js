@@ -25,6 +25,9 @@ const comp = Vue.component('app-products', {
         },
         addProductToCart(product){
             this.sharedStore.addProductAction(product);
+        },
+        goBack(){
+            window.Vue.$router.go(-1);
         }
     },
 
@@ -34,6 +37,7 @@ const comp = Vue.component('app-products', {
 
     template: `
         <div>
+          <div><button @click="goBack()">back</button></div>
             <div class="card" v-for="product in products">
                 <div class="product-header">
                     <h3>{{ product.name }}</h3>

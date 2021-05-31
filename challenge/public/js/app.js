@@ -2045,12 +2045,15 @@ var comp = vue_dist_vue_js__WEBPACK_IMPORTED_MODULE_2___default().component('app
           id: category
         }
       });
+    },
+    goBack: function goBack() {
+      window.Vue.$router.go(-1);
     }
   },
   mounted: function mounted() {
     this.categories = this.getCatagories();
   },
-  template: "\n        <div id=\"cat\">\n            <div class=\"card\" v-for=\"category in categories\" @click=\"redirectToProducts(category.id)\">\n                <h3>{{ category.name }}</h3>\n                <img :src=\"'../' + category.image\">\n            </div>\n        </div>\n    "
+  template: "\n        <div id=\"cat\">\n        <div><button @click=\"goBack()\">back</button></div>\n        <div class=\"card\" v-for=\"category in categories\" @click=\"redirectToProducts(category.id)\">\n            <h3>{{ category.name }}</h3>\n            <img :src=\"'../' + category.image\">\n        </div>\n        </div>\n    "
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (comp);
 
@@ -2120,12 +2123,15 @@ var comp = vue_dist_vue_js__WEBPACK_IMPORTED_MODULE_2___default().component('app
     },
     addProductToCart: function addProductToCart(product) {
       this.sharedStore.addProductAction(product);
+    },
+    goBack: function goBack() {
+      window.Vue.$router.go(-1);
     }
   },
   mounted: function mounted() {
     this.products = this.getproducts();
   },
-  template: "\n        <div>\n            <div class=\"card\" v-for=\"product in products\">\n                <div class=\"product-header\">\n                    <h3>{{ product.name }}</h3>\n                    <h3>$ {{ product.price }}</h3>\n                </div>\n                <img :src=\"'../../' + product.image\">\n                <button @click=\"addProductToCart(product)\">Agregar al carrito</button>\n            </div>\n        </div>\n    "
+  template: "\n        <div>\n          <div><button @click=\"goBack()\">back</button></div>\n            <div class=\"card\" v-for=\"product in products\">\n                <div class=\"product-header\">\n                    <h3>{{ product.name }}</h3>\n                    <h3>$ {{ product.price }}</h3>\n                </div>\n                <img :src=\"'../../' + product.image\">\n                <button @click=\"addProductToCart(product)\">Agregar al carrito</button>\n            </div>\n        </div>\n    "
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (comp);
 
@@ -2200,8 +2206,6 @@ var store = {
 
     if (index !== -1) {
       var productToUpdate = this.state.cart.products[index];
-      productToUpdate.id = product.id;
-      productToUpdate.name = product.name;
       productToUpdate.amount++;
       productToUpdate.price = parseInt(productToUpdate.price) + parseInt(product.price);
       this.state.cart.products[index] = productToUpdate;
@@ -2232,7 +2236,12 @@ var store = {
       var productToUpdate = this.state.cart.products[index];
 
       if (productToUpdate.amount === 1) {
-        if (this.state.cart.products.length === 1) this.state.cart.products = [];else this.state.cart.products.splice(index, 1);
+        if (this.state.cart.products.length === 1) {
+          this.state.cart.products = [];
+        } else {
+          this.state.cart.products.splice(index, 1);
+        }
+
         this.state.cart.price = parseInt(this.state.cart.price) - parseInt(product.price);
       } else {
         productToUpdate.amount--;
