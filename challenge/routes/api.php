@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +26,6 @@ Route::group(['prefix' => '/category'], function () {
     Route::GET('/{category}',  'App\Http\Controllers\CategoryController@productsInCategory');
 });
 
-Route::group(['prefix' => '/cart'], function () {
-    Route::POST('', 'App\Http\Controllers\CartController@store');
+Route::group(['prefix' => '/payment'], function () {
+    Route::POST('', 'App\Http\Controllers\PaymentController@store');
 });

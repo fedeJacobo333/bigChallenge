@@ -31,6 +31,7 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('cart_id');
+            $table->integer('amount');
 
             $table->timestamps();
 

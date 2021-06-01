@@ -11,21 +11,8 @@ const comp = Vue.component('app-cart', {
     },
 
     methods: {
-        async createCart(){
-            console.log(this.sharedStore.state.cart);
-
-            let result = await axios({
-                method: 'post',
-                url: '/api/cart',
-                data: {
-                    cart: this.sharedStore.state.cart
-                }
-            }).then(response => {
-                console.log('carrito creado');
-            })
-                .catch(error => {
-                    console.log(error);
-                })
+        async goToPayment(){
+            window.Vue.$router.push({ name: 'payment'});
         },
         removeProduct(product){
             this.sharedStore.removeProductAction(product);
@@ -39,7 +26,7 @@ const comp = Vue.component('app-cart', {
           </div>
           <div>{{ sharedStore.state.cart.number_elements }} elementos</div>
           <div>$ {{ sharedStore.state.cart.price }}</div>
-          <div><button @click="createCart()">pagar</button></div>
+          <div><button @click="goToPayment()">pagar</button></div>
         </div>
     `,
 });

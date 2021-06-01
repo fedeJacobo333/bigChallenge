@@ -92,7 +92,7 @@ class Product extends Model
     }
 
     public function carts(){
-        return $this->belongsToMany(Category::class, 'products_carts');
+        return $this->belongsToMany(Category::class, 'products_carts')->withPivot('id', 'product_id', 'cart_id', 'amount');
     }
 
     /*

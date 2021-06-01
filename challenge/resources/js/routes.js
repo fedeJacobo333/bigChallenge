@@ -2,11 +2,13 @@ import VueRouter from 'vue-router';
 import app_menu from "./components/app_menu";
 import app_products from "./components/app_product";
 import app_cart from "./components/app_cart";
+import app_payment from "./components/app_payment";
 
 let routes = [
     {
         path: '/home/category',
-        component: app_menu
+        name: 'home',
+        component: app_menu,
     },
     {
         path: '/home/cart',
@@ -16,6 +18,12 @@ let routes = [
         path: '/home/category/:id',
         name: 'products',
         component: app_products,
+        props: true
+    },
+    {
+        path: '/payment',
+        name: 'payment',
+        component: app_payment,
         props: true
     }
 ];
